@@ -2,7 +2,8 @@
 NovoChat Deploy em produção
 
 Gere chave 32 forte
-openssl rand -base64 24
+
+$openssl rand -base64 24
 __________________
 
 Clone os repositorios:
