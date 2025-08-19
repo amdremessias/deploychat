@@ -1,0 +1,71 @@
+root@ser-old-vps /o/s/c/evolution (main)# cat docker-compose.yaml
+version: '3'
+
+services:
+  api:
+    container_name: evolution_api
+    image: atendai/evolution-api:v1.8.5
+    restart: always
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - 8080:8080
+    volumes:
+      - evolution_instances:/evolution/instances
+    # Adicionamos a rede do chatwoot aqui
+    environment:
+    # Configuração do Node
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+    networks:
+      - evolution-net
+      - chatwoot-net
+    env_file:
+      - .env
+    expose:
+      - 8080
+
+  redis:
+    image: redis:latest
+    networks:
+      - evolution-net
+    container_name: redis
+    command: >
+      redis-server --port 6379 --appendonly yes
+    volumes:
+      - evolution_redis:/data
+    ports:
+      - 6378:6378
+
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    networks:
+      - evolution-net
+    command: ["postgres", "-c", "max_connections=1000", "-c", "listen_addresses=*"]
+    restart: always
+    ports:
+      - 5433:5433
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=BQef4IaVnba1M0IPWqja
+      - POSTGRES_DB=evolution
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - 5433
+
+volumes:
+  evolution_instances:
+  evolution_redis:
+  postgres_data:
+
+networks:
+  evolution-net:
+    name: evolution-net
+    driver: bridge
+  # Adicionamos a rede externa do chatwoot
+  chatwoot-net:
+    external: true
+    name: novochat_default # O nome da sua rede do chatwoot pode ser diferente
