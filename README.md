@@ -4,6 +4,14 @@ NovoChat Deploy em produção
 Gere chave 32 forte
 openssl rand -base64 24
 __________________
+clone os repositorios:
+https://github.com/chatwoot/chatwoot
+https://github.com/EvolutionAPI/evolution-api
+
+Controle as versoes com:
+https://hub.docker.com/r/chatwoot/chatwoot/tags
+https://hub.docker.com/r/atendai/evolution-api/tags
+__________________
 aponte dominio.exemplo para o host no /etc/host
 aponte servername com IP do host para primeira resolução local de DNS em:
 
