@@ -4,11 +4,11 @@ NovoChat Deploy em produção
 Gere chave 32 forte
 openssl rand -base64 24
 __________________
-clone os repositorios:
+Clone os repositorios:
 https://github.com/chatwoot/chatwoot
 https://github.com/EvolutionAPI/evolution-api
 
-Controle as versoes com:
+Controle as versões com:
 https://hub.docker.com/r/chatwoot/chatwoot/tags
 https://hub.docker.com/r/atendai/evolution-api/tags
 __________________
