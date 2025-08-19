@@ -15,9 +15,13 @@ https://hub.docker.com/r/atendai/evolution-api/tags
 __________________
 
 aponte dominio.exemplo para o host no /etc/host
+
 192.168.2.213 host.mordorlab.com
+
 192.168.2.213 api.mordorlab.com
+
 #192.168.2.213 n8n.mordorlab.com
+
 192.168.2.213 chat.mordorlab.com
 
 aponte servername com IP do host para primeira resolução local de DNS em:
