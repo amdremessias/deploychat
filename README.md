@@ -27,15 +27,28 @@ aponte dominio.exemplo para o host no /etc/host
 aponte servername com IP do host para primeira resolução local de DNS em:
 
 root@ser-old-vps /o/s/c/evolution (main)# cat /etc/netplan/50-cloud-init.yaml 
+
+
+
 network:
+  
   version: 2
-  ethernets:
+
+      ethernets:
+   
     ens18:
+    
       addresses:
+           
+      
       - "192.168.2.213/24"
+      
       nameservers:
+      
         addresses:
+        
         - 192.168.2.213 # <--
+        
         search:
         - 8.8.8.8
 ....
