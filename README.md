@@ -62,3 +62,26 @@ ls -l /etc/nginx/sites-available/
 sudo rm /etc/nginx/sites-enabled/100.116.220.121.conf
 ls -l /etc/nginx/sites-enabled/
 ___________________
+Preparando o banco:
+
+echo ""
+echo " Removendo orphnas e imagens"
+sleep 7
+docker compose down -v --remove-orphans --rmi all --volumes
+echo "Restart Docker....."
+sudo systemctl restart docker
+sleep 7
+echo ""
+echo "Preparando banco db:chatwoot_prepare"
+docker-compose run --rm rails bundle exec rails db:chatwoot_prepare
+sleep 5
+docker compose up -d
+sleep 7
+#DISABLE_DATABASE_ENVIRONMENT_CHECK=1 docker-compose run --rm rails bundle exec rails db:schema:reload
+echo ""
+echo "Criando user admin defautl diretamente no banco"
+DISABLE_DATABASE_ENVIRONMENT_CHECK=1 docker compose run --rm rails bundle exec rake chatwoot:create_admin --trace EMAIL="amdrelmes@gmail.com" PASSWORD="fghaasdasd24ss"
+echo "Fim"
+echo "Acesse https://host.novochat.internal/" 
+eho ""
+echo "
